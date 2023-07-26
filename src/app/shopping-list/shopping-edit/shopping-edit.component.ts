@@ -14,6 +14,8 @@ export class ShoppingEditComponent implements OnInit {
   @ViewChild('amountInput', {static: false})
   amountInputRef: ElementRef;
 
+  status = 'ok'
+
   @Output()
   ingridientAdded = new EventEmitter<Ingridient>();
 
@@ -25,9 +27,14 @@ export class ShoppingEditComponent implements OnInit {
   onAddItem(){
     const ingName = this.nameInputRef.nativeElement.value;
     const ingAmount = this.amountInputRef.nativeElement.value;
-    const newIngridient = new Ingridient(ingName, ingAmount);
+    this.status = 'erro'
 
-    this.ingridientAdded.emit(newIngridient);
+    if (ingName !== '' && ingAmount !== ''){
+      this.status = 'ok'
+
+      const newIngridient = new Ingridient(ingName, ingAmount);
+
+      this.ingridientAdded.emit(newIngridient);
+    }
   }
-
 }
